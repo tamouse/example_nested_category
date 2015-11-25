@@ -1,3 +1,0 @@
-== example_nested_category
-
-Showing how to use a model to refer to itself, in a tree, with parents, children, and siblings.

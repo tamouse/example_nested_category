@@ -1,0 +1,19 @@
+2015-11-24  Tamara Temple  <tamouse@gmail.com>
+
+	* app/views/categories/_category.html.erb: formatting, preventing
+	searching too deep.
+
+	* README.md: details on setup and findings
+
+	* test/models/category_test.rb: add test_no_siblings and test_has_parent_eh.
+
+	* app/models/category.rb (Category#has_parent): predicate if a
+	cateogry has a parent.(Category#siblings): fixes siblings if null parent.
+
+	* test/controllers/categories_controller_test.rb
+	(CategoriesControllerTest): use FactoryGirl instead of fixture,
+	set create and update post values. Test changes worked.
+
+	* app/controllers/categories_controller.rb
+	(CategoriesController#category_params): permit all parameters
+	under `:category`.
