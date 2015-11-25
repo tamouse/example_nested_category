@@ -1,7 +1,7 @@
+require 'faker'
+
 FactoryGirl.define do
   factory :category do
-    name "MyString"
-parent nil
+    name { Faker::Name.name }
   end
-
 end
