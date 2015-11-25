@@ -1,0 +1,27 @@
+o<!-- Partial for displaying a category -->
+<div class="category-item">
+  <ul>
+    <li>Name: <%= link_to category.name, category_path(category) %></li>
+    <li>
+        <% if category.parent %> <p>Parent: <%= category.parent.name %></p> <% end %>
+    </li>
+    <% if category.siblings %>
+    <li>
+      Siblings:
+      <ul>
+	<% category.siblings.each do |sibling| %>
+	<li><%= link_to sibling.name, category_path(sibling) %></li>
+	<% end %>
+      </ul>
+    </li>
+    <% end %>
+    <% unless category.children.empty? %>
+    <li>
+      Children:
+      <blockquote>
+	<%= render partial: category.children, locals: {shallow: false} %>
+      </blockquote>
+    </li>
+    <% end %>
+  </ul>
+</div>

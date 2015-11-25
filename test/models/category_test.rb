@@ -28,5 +28,16 @@ class CategoryTest < ActiveSupport::TestCase
     refute siblings.pluck(:id).include? child.id
   end
 
+  def test_no_siblings
+    category = FactoryGirl.create :category
+    assert_empty category.siblings
+  end
 
+
+  def test_has_parent_eh
+    parent = FactoryGirl.create( :category )
+    child = parent.children.create FactoryGirl.attributes_for(:category)
+    refute parent.has_parent?
+    assert child.has_parent?
+  end
 end
