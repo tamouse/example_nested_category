@@ -108,7 +108,7 @@ the partial itself:
 
 * ruby 2.2.x
 * rails 4.2.x
-* sqlite3
+* sqlite3 -or- postgresql
 
 Also you might need to do something special if you're not working in a
 fairly bog-standard Linux/Unix/OSX environment.
@@ -119,6 +119,25 @@ fairly bog-standard Linux/Unix/OSX environment.
 
 ``` shell
 git clone https://github.com/tamouse/example_nested_category.git
+```
+
+### decide which dbms to use
+
+#### Postgresql
+
+``` shell
+ln -s Gemfile.pg Gemfile
+cd config
+ln -s database-pg.yml database.yml
+cd ..
+```
+
+#### Sqlite3
+
+``` shell
+ln -s Gemfile.sqlite3 Gemfile
+cd config
+ln -s database-sqlite3.yml database.yml
 ```
 
 ### bundle it
