@@ -40,4 +40,67 @@ class CategoryTest < ActiveSupport::TestCase
     refute parent.has_parent?
     assert child.has_parent?
   end
+
+  def test_is_root_eh
+    root = FactoryGirl.create( :category )
+    assert_equal root, Category.root
+    assert root.is_root?
+  end
+
+  def test_is_leaf_eh
+    node = FactoryGirl.create( :category )
+    assert node.is_leaf?
+  end
+
+  def test_ensure_one_root
+    root = FactoryGirl.create( :category )
+    other = FactoryGirl.create( :category )
+    assert root.is_root?
+    refute other.is_root?
+    assert_equal root, other.parent
+    assert root.children.include?(other)
+  end
+
+  def test_ensure_one_root_forced
+    root = FactoryGirl.create( :category )
+    other = FactoryGirl.create( :category )
+
+    other.update(parent_id: nil)
+    other.reload
+
+    assert root.is_root?
+    refute other.is_root?
+    assert_equal root, other.parent
+    assert root.children.include?(other)
+  end
+
+  def test_ensure_one_root_removed
+    root = FactoryGirl.create( :category )
+    other = FactoryGirl.create( :category )
+
+    root.update(parent: other)
+    root.reload
+
+    assert root.is_root?
+    refute other.is_root?
+    assert_equal root, other.parent
+    assert root.children.include?(other)
+  end
+
+  def test_make_root
+    root = FactoryGirl.create( :category )
+    other = FactoryGirl.create( :category )
+
+    other.make_root
+
+    root.reload
+    other.reload
+
+    refute root.is_root?, "root should not be root anymore: #{root.inspect}"
+    assert other.is_root?
+    refute_equal root, other.parent
+    refute root.children.include?(other)
+    assert_equal other, root.parent
+    assert other.children.include?(root)
+  end
 end
