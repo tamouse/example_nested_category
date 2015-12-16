@@ -16,3 +16,7 @@
 !/log/.keep
 /tmp
 .DS_Store
+Gemfile
+Gemfile.lock
+config/database.yml
+db/schema.rb
